@@ -1,9 +1,10 @@
+// src/types/movie.ts
 export interface Movie {
   id: number;
-  poster_path: string;
-  backdrop_path: string;
   title: string;
   overview: string;
   release_date: string;
+  poster_path: string | null;
   vote_average: number;
+  vote_count: number;
 }
