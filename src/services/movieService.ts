@@ -1,21 +1,28 @@
-// src/services/movieService.ts
-import http from "../libs/api-service";
-import type { Movie } from "../types/movie";
-
-interface MovieResponse {
+import { http } from "../libs/api-service.ts";
+import { BEARER_KEY, ROUTES } from "../constants";
+import type { Movie } from "../types/movie.ts";
+interface MoviesResponse {
+  page: number;
   results: Movie[];
+  total_pages: number;
+  total_results: number;
 }
-
-export const fetchMovies = async (query: string): Promise<MovieResponse> => {
-  try {
-    const response = await http.get<MovieResponse>("/search/movie", {
-      params: {
-        query: query,
+export const fetchMovie = async (
+  query: string,
+  page: string = "1"
+): Promise<MoviesResponse> => {
+  const urlSearchParams: URLSearchParams = new URLSearchParams({
+    query,
+    page,
+  });
+  const { data } = await http.get<MoviesResponse>(
+    `${ROUTES.searchMovie}?${urlSearchParams.toString()}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${BEARER_KEY}`,
       },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching movies:", error);
-    throw new Error("Failed to fetch movies");
-  }
+    }
+  );
+  return data;
 };
