@@ -23,7 +23,7 @@ const SearchBar = ({ onSubmit }: SearchBarProps) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Filmix
+          Powered by TMDB
         </a>
         <form className={styles.form} action={handleSubmitForm}>
           <input
