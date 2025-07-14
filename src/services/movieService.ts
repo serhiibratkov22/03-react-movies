@@ -25,6 +25,8 @@ export const fetchMovie = async (
   query: string,
   page = "1"
 ): Promise<MoviesResponse> => {
-  const { data } = await api.get("/search/movie", { params: { query, page } });
+  const { data } = await api.get<MoviesResponse>("/search/movie", {
+    params: { query, page },
+  });
   return data;
 };
